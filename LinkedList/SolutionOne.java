@@ -1,16 +1,15 @@
-package LinkedList;
-import LinkedList.MyLinkedList.Node;
+import java.util.*;
 
 class Practice {
     public void printList(MyLinkedList<Integer> list) {
-        Node<Integer> current = list.head;
+        MyLinkedList.Node<Integer> current = list.head;
         while (current != null) {
             System.out.print(current.data + " -> ");
             current = current.next;
         }
         System.out.println("null");
     }
-    Node<Integer> addTail(MyLinkedList.Node<Integer> head, int data)
+    MyLinkedList.Node<Integer> addTail(MyLinkedList.Node<Integer> head, int data)
     {
         MyLinkedList.Node<Integer> newTail = new MyLinkedList.Node<Integer>(data);
         if(head == null)
@@ -30,9 +29,9 @@ class Practice {
         return head;
     }
 
-    Node<Integer> addNodeAtPos(Node<Integer> head, int position, int data)
+    MyLinkedList.Node<Integer> addNodeAtPos(MyLinkedList.Node<Integer> head, int position, int data)
     {
-        Node<Integer> pos = new Node<Integer>(data);
+        MyLinkedList.Node<Integer> pos = new MyLinkedList.Node<Integer>(data);
         int count = 0;
 
         if(position < 1)
@@ -40,7 +39,7 @@ class Practice {
             return pos;
         }
 
-        Node<Integer> current = head;
+        MyLinkedList.Node<Integer> current = head;
 
         while(current.next != null)
         {
@@ -59,9 +58,9 @@ class Practice {
 
     }
 
-    Node<Integer> addNodeAtHead(Node<Integer> headPointer, int data)
+    MyLinkedList.Node<Integer> addNodeAtHead(MyLinkedList.Node<Integer> headPointer, int data)
     {
-        Node<Integer> newHead = new Node<Integer>(data);
+        MyLinkedList.Node<Integer> newHead = new MyLinkedList.Node<Integer>(data);
         if(headPointer == null)
         {
             return newHead;
@@ -73,9 +72,9 @@ class Practice {
         return headPointer;
     }
 
-    Node<Integer> deleteNode(Node<Integer> headPointer, int pos)
+    MyLinkedList.Node<Integer> deleteNode(MyLinkedList.Node<Integer> headPointer, int pos)
     {
-        Node<Integer> current = headPointer;
+        MyLinkedList.Node<Integer> current = headPointer;
 
         if(current == null)
         {
@@ -101,6 +100,25 @@ class Practice {
         return headPointer;
 
     }
+
+    public void reverseLinkList(MyLinkedList.Node<Integer> headPointer)
+    {
+        Stack<Integer> rev = new Stack<>();
+        rev.push(headPointer.data);
+        
+        while(headPointer.next != null)
+        {
+            headPointer = headPointer.next;
+            rev.push(headPointer.data);
+
+        }
+        
+        while(!rev.isEmpty())
+        {
+            System.out.println(rev.pop());
+        }
+
+    }
 }
 
 public class SolutionOne {
@@ -108,9 +126,9 @@ public class SolutionOne {
     {
         MyLinkedList<Integer> list = new MyLinkedList<>();
 
-        Node<Integer> node1 = new Node<>(20);
-        Node<Integer> node2 = new Node<>(20);
-        Node<Integer> node3 = new Node<>(30);
+        MyLinkedList.Node<Integer> node1 = new MyLinkedList.Node<>(20);
+        MyLinkedList.Node<Integer> node2 = new MyLinkedList.Node<>(20);
+        MyLinkedList.Node<Integer> node3 = new MyLinkedList.Node<>(30);
 
         list.head = node1;
 
@@ -126,23 +144,25 @@ public class SolutionOne {
         ob.addTail(list.head, 0);
         ob.printList(list);
 
-        //add a node at a given position
+        //add a MyLinkedList.node at a given position
         ob.addNodeAtPos(list.head, 2, 11);
         ob.printList(list);
 
-        //add node at head
-        Node<Integer> llist = ob.addNodeAtHead(list.head, 21);
+        //add MyLinkedList.node at head
+        MyLinkedList.Node<Integer> llist = ob.addNodeAtHead(list.head, 21);
 
         list.head = llist;
 
         ob.printList(list);
 
-        //delete a give node
-        Node<Integer> lilist = ob.deleteNode(list.head, 2);
+        //delete a give MyLinkedList.node
+        MyLinkedList.Node<Integer> lilist = ob.deleteNode(list.head, 2);
 
         list.head = lilist;
 
         ob.printList(list);
+
+        ob.reverseLinkList(list.head);
 
     }
     

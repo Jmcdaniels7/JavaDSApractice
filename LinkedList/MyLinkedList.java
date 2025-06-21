@@ -1,5 +1,3 @@
-package LinkedList;
-
 // MyLinkedList.java
 public class MyLinkedList<T> {
     public Node<T> head;
