@@ -74,10 +74,34 @@ public class binaryTree<T extends Comparable <T>> {
     public void preOrderTrav(Node<T> node)
     {
         preorderRecurs(node);
+        System.out.println("");
     }
 
     private void preorderRecurs(Node<T> node)
     {
+        if(node != null)
+        {
+            System.out.print(node.data + " -> ");
+            preorderRecurs(node.left);
+            preorderRecurs(node.right);
+        }
+    }
+
+    public void postOrderTrav(Node<T> node)
+    {
+        postorderRecurs(node);
+        System.out.println("");
         
+    }
+
+    private void postorderRecurs(Node<T> node)
+    {
+        if(node != null)
+        {
+            postorderRecurs(node.left);
+            postorderRecurs(node.right);
+            System.out.print(node.data + " -> ");
+        }
+
     }
 }
