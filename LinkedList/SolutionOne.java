@@ -119,18 +119,96 @@ class Practice {
         }
 
     }
+
+    public MyLinkedList.Node<Integer> mergeTwoLists(MyLinkedList.Node<Integer> list1, MyLinkedList.Node<Integer> list2) 
+    {
+        //if null we return the other list
+        if(list1 == null)
+        {
+            return list2;
+        }
+
+        if(list2 == null)
+        {
+            return list1;
+        }
+
+        //what happens first is we get to the end of each linked list
+        // once we get to a null pointer we start to assign that 
+        // lists link to the greater value and so on and so forth
+        if(list1.data <= list2.data)
+        {
+            list1.next = mergeTwoLists(list1.next, list2);
+            return list1;
+        }
+        else
+        {
+            list2.next = mergeTwoLists(list1, list2.next);
+            return list2;
+        }
+
+    }
+
+    public MyLinkedList.Node<Integer> sortLinkedList(MyLinkedList.Node<Integer> head) 
+    {
+        if (head == null || head.next == null) 
+        {
+            return head;
+        }
+
+        // Step 1: Split list into halves
+        MyLinkedList.Node<Integer> mid = getMiddle(head);
+        MyLinkedList.Node<Integer> nextToMid = mid.next;
+        mid.next = null; // Split the list
+
+        // Step 2: Sort both halves
+        MyLinkedList.Node<Integer> left = sortLinkedList(head);
+        MyLinkedList.Node<Integer> right = sortLinkedList(nextToMid);
+
+        // Step 3: Merge sorted halves
+        return mergeTwoLists(left, right);
+    }
+
+    private MyLinkedList.Node<Integer> getMiddle(MyLinkedList.Node<Integer> head) {
+        if (head == null) 
+        {
+            return head;
+        }
+        
+        MyLinkedList.Node<Integer> slow = head;
+        MyLinkedList.Node<Integer> fast = head.next;
+
+        while (fast != null && fast.next != null) 
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
 }
 
 public class SolutionOne {
     public static void main(String args[])
     {
         MyLinkedList<Integer> list = new MyLinkedList<>();
+        MyLinkedList<Integer> listTwo = new MyLinkedList<>();
+
 
         MyLinkedList.Node<Integer> node1 = new MyLinkedList.Node<>(20);
-        MyLinkedList.Node<Integer> node2 = new MyLinkedList.Node<>(20);
+        MyLinkedList.Node<Integer> node2 = new MyLinkedList.Node<>(27);
         MyLinkedList.Node<Integer> node3 = new MyLinkedList.Node<>(30);
 
+        MyLinkedList.Node<Integer> node4 = new MyLinkedList.Node<>(24);
+        MyLinkedList.Node<Integer> node5 = new MyLinkedList.Node<>(34);
+        MyLinkedList.Node<Integer> node6 = new MyLinkedList.Node<>(19);
+
         list.head = node1;
+        listTwo.head = node6;
+
+        node6.next = node4;
+        node4.next = node5;
 
         node1.next = node2;
         node2.next = node3;
@@ -163,6 +241,19 @@ public class SolutionOne {
         ob.printList(list);
 
         ob.reverseLinkList(list.head);
+
+        //Sorting linked lists
+        list.head = ob.sortLinkedList(list.head);
+        listTwo.head = ob.sortLinkedList(listTwo.head);
+
+        //merge two sorted linked lists
+        System.out.println("Merged List:");
+
+        MyLinkedList.Node<Integer> lil = ob.mergeTwoLists(list.head, listTwo.head);
+
+        list.head = lil;
+
+        ob.printList(list);
 
     }
     
