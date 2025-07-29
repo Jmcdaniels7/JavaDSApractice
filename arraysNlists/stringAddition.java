@@ -1,55 +1,70 @@
 public class stringAddition {
-    public static String addString(String num1, String num2)
-    {
-        // we need a carry method to account for carrying over addition
-        int carry = 0;
-        int l1 = num1.length() - 1;
-        int l2 = num2.length() - 1;
+    public static String addStrings(String num1, String num2) {
 
-        //practicing utilizing string builder
+        //we need a carry variable
+        // we need two variables that start at the end of each string
+        int carry = 0;
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+
+        //we also need a string builder which will be printed reversed 
+        //until we reverse it
+
         StringBuilder sb = new StringBuilder();
 
-        //if first string is empty we return the other integer
-        if(num1.isEmpty())
+        //we want to loop until we are at the beginning of one of the strings or 
+        //while carry != 0
+        while(i >= 0 || j >= 0 || carry != 0)
         {
-            return num2;
-        }
+            //now we need to get each digit so we can do elementary math 
+            //one column at a time
 
-        //if second string is empty we return the other integer
-        if(num2.isEmpty())
-        {
-            return num1;
-        }
+            //what happens here is we get ascii subtraction with to get each digit
+            int dig1 = (i >= 0) ? num1.charAt(i) - '0' : 0;
+            int dig2 = (j >= 0) ? num2.charAt(j) - '0' : 0;
 
-        //loop until we are at the left side of the numbers
-        while( l1 >= 0 || l2 >= 0 || carry != 0 )
-        {
-            //everytime through the loop we add digits and keep the carry to add
-            int dig1 = (l1 >= 0) ? num1.charAt(l1) - '0' : 0;
-            int dig2 = (l2 >= 0) ? num2.charAt(l2) - '0' : 0;
-
+            //we do this first to catch carry over after each time through the loop
             int sum = dig1 + dig2 + carry;
 
-            // we get the carry from how many times the sum goes into 10
+            // if the sum is greater than or equal to ten we will get carry = 1
             carry = sum / 10;
 
-            //we want to append the remainder of the sum / 10
+            //here we need to append the remainder of the sum / 10
             sb.append(sum % 10);
-            
-            l1--;
-            l2--;
+
+            i--;
+            j--;
         }
 
+        //here we need to reverse the string builder to get the number in proper order
         return sb.reverse().toString();
+        
     }
     public static void main(String args[])
     {
+        //edge cases
+
+        //carrying over
+
+        //differing string sizes
         String num1 = "119";
         String num2 = "25";
 
-        String result = addString(num1, num2);
+        //same string sizes
+        String n3 = "21";
+        String n4 = "99";
+
+        //long string sizes
+        String n5 = "114560000009";
+        String n6 = "121150000001";
+
+        String result = addStrings(num1, num2);
+        String res2 = addStrings(n3, n4);
+        String res3 = addStrings(n5, n6);
 
         System.out.println(result);
+        System.out.println(res2);
+        System.out.println(res3);
 
     }
     
