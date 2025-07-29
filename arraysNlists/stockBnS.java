@@ -1,3 +1,5 @@
+import java.util.*;
+
 class stockBnS {
     public static int maxProfit(int[] prices) {
         //we want to find the maximum profit if we buy in the beginning indexes and sell at the next
@@ -30,6 +32,8 @@ class stockBnS {
     public static void main(String args[])
     {
         int[] prices = {10, 1, 5, 11, 2, 7};
+
+        Arrays.sort(prices);
 
         System.out.println("The max profit is:" + maxProfit(prices));
     }
