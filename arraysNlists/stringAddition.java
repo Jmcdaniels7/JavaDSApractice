@@ -30,8 +30,10 @@ public class stringAddition {
 
             int sum = dig1 + dig2 + carry;
 
+            // we get the carry from how many times the sum goes into 10
             carry = sum / 10;
 
+            //we want to append the remainder of the sum / 10
             sb.append(sum % 10);
             
             l1--;
